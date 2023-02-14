@@ -1,0 +1,6 @@
+framework module Pods_NexmoTest3_0_1Tests {
+  umbrella header "Pods-NexmoTest3.0.1Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
