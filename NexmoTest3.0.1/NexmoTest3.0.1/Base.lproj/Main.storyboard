@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NexmoTest3_0_1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndS-aA-Bvx">
+                                <rect key="frame" x="20" y="69" width="353" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VOp-qr-8Dl">
+                                <rect key="frame" x="20" y="119.33333333333333" width="353" height="20.333333333333329"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Connection Status: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh7-JR-ozP">
+                                        <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Connected" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXW-Uc-uWS">
+                                        <rect key="frame" x="157.66666666666663" y="0.0" width="195.33333333333337" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-Aj-6pg">
+                                <rect key="frame" x="20" y="149.66666666666666" width="353" height="34.333333333333343"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="alam100" borderStyle="roundedRect" placeholder="enter caller name/id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RpH-GE-5ST">
+                                        <rect key="frame" x="0.0" y="0.0" width="286.33333333333331" height="34.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rad-hy-bAM">
+                                        <rect key="frame" x="300.33333333333331" y="0.0" width="52.666666666666686" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Call"/>
+                                        <connections>
+                                            <action selector="callButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dk-vM-SOn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxI-eW-u3t">
+                                <rect key="frame" x="20" y="194" width="353" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Hangup"/>
+                                <connections>
+                                    <action selector="hangUpButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cKy-Vf-D3d"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HxI-eW-u3t" secondAttribute="trailing" constant="20" id="BNv-VQ-A6U"/>
+                            <constraint firstItem="ndS-aA-Bvx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="CpJ-tt-yiH"/>
+                            <constraint firstItem="VOp-qr-8Dl" firstAttribute="top" secondItem="ndS-aA-Bvx" secondAttribute="bottom" constant="30" id="LWA-ni-OwF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vTg-Aj-6pg" secondAttribute="trailing" constant="20" id="Mb2-AE-zgl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ndS-aA-Bvx" secondAttribute="trailing" constant="20" id="Ojl-N9-Ng5"/>
+                            <constraint firstItem="ndS-aA-Bvx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Wuc-Ye-TmV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VOp-qr-8Dl" secondAttribute="trailing" constant="20" id="db7-Mk-Vof"/>
+                            <constraint firstItem="vTg-Aj-6pg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gdV-O7-hqs"/>
+                            <constraint firstItem="HxI-eW-u3t" firstAttribute="top" secondItem="vTg-Aj-6pg" secondAttribute="bottom" constant="10" id="jke-ZZ-jcx"/>
+                            <constraint firstItem="vTg-Aj-6pg" firstAttribute="top" secondItem="VOp-qr-8Dl" secondAttribute="bottom" constant="10" id="o6W-xz-4kU"/>
+                            <constraint firstItem="VOp-qr-8Dl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wVH-mu-Gbq"/>
+                            <constraint firstItem="HxI-eW-u3t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ztv-Vl-5uI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="callButton" destination="rad-hy-bAM" id="ie0-Yq-GJI"/>
+                        <outlet property="callTextField" destination="RpH-GE-5ST" id="ozD-bI-giM"/>
+                        <outlet property="connectionStatus" destination="VXW-Uc-uWS" id="FJU-vJ-dqu"/>
+                        <outlet property="hangupButton" destination="HxI-eW-u3t" id="cG5-fp-lJy"/>
+                        <outlet property="username" destination="ndS-aA-Bvx" id="Wts-4p-tZb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
