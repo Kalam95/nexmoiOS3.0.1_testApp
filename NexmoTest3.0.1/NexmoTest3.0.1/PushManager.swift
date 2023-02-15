@@ -101,8 +101,10 @@ extension PushManager: PKPushRegistryDelegate {
                       payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
         self.pushInfo = payload.dictionaryPayload
         uuid = UUID()
+        let dictionary = payload.dictionaryPayload as NSDictionary
+        let from = dictionary.value(forKeyPath: "nexmo.push_info.to_user.name") as? String
         let update = CXCallUpdate()
-        update.localizedCallerName = "Unknown"
+        update.localizedCallerName = from ?? "unknown"
         callProvider.reportNewIncomingCall(with: uuid, update: update) { error in
             print(error?.localizedDescription ?? "Call reported")
             if error == nil {
@@ -112,15 +114,12 @@ extension PushManager: PKPushRegistryDelegate {
     }
     
     func hangupCall() {
-        guard let uuid = uuid else { return }
-        let action = CXEndCallAction(call: uuid)
-        let transaction = CXTransaction(action: action)
-        
-        callController.request(transaction) { error in
-            if let error = error {
-                print(error)
-            }
-        }
+        guard let _ = uuid else { return }
+        callProvider.invalidate()
+        callProvider = .init(configuration: providerConfiguration)
+        callProvider.setDelegate(self, queue: nil)
+        uuid = nil
+        call = nil
     }
 }
 
@@ -153,6 +152,8 @@ extension PushManager: CXProviderDelegate {
 
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         call?.reject()
+        uuid = nil
+        call = nil
         NotificationCenter.default.post(name: .pushKitHandlledCall, object: nil)
         action.fulfill()
     }
