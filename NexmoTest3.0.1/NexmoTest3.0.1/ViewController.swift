@@ -27,6 +27,10 @@ class ViewController: UIViewController {
     }
     
     func bindViewModel() {
+        viewModel.$name
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.text!, on: username)
+            .store(in: &cancellable)
         viewModel.$connectionStatus
             .receive(on: DispatchQueue.main)
             .assign(to: \.text!, on: connectionStatus)
@@ -79,12 +83,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func callButtonTapped(_ sender: Any) {
+        callTextField.resignFirstResponder()
         let callee = callTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let callee = callee, !callee.isEmpty else {
             showErrorAlert(error: "Please enter call id or number")
             return
         }
-        viewModel.startaCall(callee: callee)
+        viewModel.startCallKitCall(callee: callee)
     }
 }
 

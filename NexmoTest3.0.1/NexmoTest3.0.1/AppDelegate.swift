@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ClientManager.shared.setAudioSettings()
         return true
     }
-
+//com.nexmo.nexmoclient-push-notifications-test-app-ios
     
     
     // MARK: UISceneSession Lifecycle

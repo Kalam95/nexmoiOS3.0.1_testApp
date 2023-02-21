@@ -15,11 +15,13 @@ class ClientManager: NSObject {
     static let shared = ClientManager()
     
     private let client: NXMClient
+    @Published var name: String = ""
     @Published private(set) var callInvite: String?
     private(set) var call: NXMCall?
     @Published private(set) var error: Error? = nil
     @Published var connectionStatus: String = "Not Connected"
-    private let token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNYXggTlBFIEFwcCIsImlhdCI6MTY3NjQ2MzkyNCwibmJmIjoxNjc2NDYzOTI0LCJleHAiOjE2NzY1NTk5NTQsImp0aSI6MTY3NjQ2Mzk1NDU2MSwiYXBwbGljYXRpb25faWQiOiI0ZmVkM2Q3YS0zZjY1LTQzNmQtODdkZC03NzUxMzk0YWE0MzMiLCJhY2wiOnsicGF0aHMiOnsiLyovdXNlcnMvKioiOnt9LCIvKi9jb252ZXJzYXRpb25zLyoqIjp7fSwiLyovc2Vzc2lvbnMvKioiOnt9LCIvKi9kZXZpY2VzLyoqIjp7fSwiLyovaW1hZ2UvKioiOnt9LCIvKi9tZWRpYS8qKiI6e30sIi8qL2FwcGxpY2F0aW9ucy8qKiI6e30sIi8qL3B1c2gvKioiOnt9LCIvKi9rbm9ja2luZy8qKiI6e30sIi8qL2NhbGxzLyoqIjp7fSwiLyovbGVncy8qKiI6e319fSwic3ViIjoiYWxhbSJ9.DcHmy_ksL4k4W3PQj9eHA3BES-8oEhRfclq30FJUK6Ji4AitQScRztOQZdyaMnS89gGnw2_uueAqBAKZ95WQCtMGQTFOcwFOhOdq6XJdj25qaAz9aNWZu0Voh6zX--JFJ1BqPd2bJoAwybWfyuEAKuTwKl2Uobbuc46gJ9w-dUZAeMHkwBlYSNChudysOo2p7zuZJFVHXTgP-UfpgaJTFJRAEEkSKH3aOjK-zBK-860HhRyRypyzJ0czn366UX-oMW21DKnuCGu1RDpq3d3hGQfsb7wNvVSjE5kXgrU89JE8MUudKsNvw5yE35AJ8GM46k8_mRoXByO-ImigkMmPEw"
+    private var callee: String = ""
+    private let token = ""
     
     private override init () {
         NXMClient.setConfiguration(.init(apiUrl: "https://api.nexmo.com/",
@@ -58,14 +60,20 @@ class ClientManager: NSObject {
         }
     }
     
-    func startaCall(callee: String) {
-        client.call(callee, callHandler: .inApp) { error, call in
+    func startCallKitCall(callee: String) {
+        self.callee = callee
+        PushManager.shared.startCallKitCall(callee: callee)
+    }
+
+    func startaCall() {
+        client.call(callee, callHandler: .server) { error, call in
             guard let call = call else {
                 self.error = error
                 return
             }
             call.setDelegate(self)
             self.call = call
+            PushManager.shared.update(call: call)
         }
     }
     
@@ -89,9 +97,11 @@ extension ClientManager: NXMClientDelegate {
             connectionStatus = "Connected"
             PushManager.shared.sendPushTokens()
             PushManager.shared.processPushInfo()
+            name = client.user?.name ?? "unknown"
         @unknown default:
             connectionStatus = "Unknown"
         }
+        
     }
     
     func client(_ client: NXMClient, didReceiveError error: Error) {
@@ -145,15 +155,16 @@ extension ClientManager: NXMCallDelegate {
             hangupCall()
         default: break
         }
-        
+        print("call status: \(status) for member: \(member.user.name)")
     }
     
     func call(_ call: NXMCall, didUpdate member: NXMMember, isMuted muted: Bool) {
-        
+        print("mute status: \(muted) for member: \(member.user.name)")
     }
     
     func call(_ call: NXMCall, didReceive error: Error) {
         self.error = error
+        print("error is received \(error.localizedDescription)")
     }
     
     func call(_ call: NXMCall, didReceive dtmf: String, from member: NXMMember?) {
