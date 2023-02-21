@@ -103,6 +103,7 @@ extension PushManager: PKPushRegistryDelegate {
         uuid = UUID()
         let dictionary = payload.dictionaryPayload as NSDictionary
         let from = dictionary.value(forKeyPath: "nexmo.push_info.to_user.name") as? String
+        print("Push: ", payload.dictionaryPayload)
         let update = CXCallUpdate()
         update.localizedCallerName = from ?? "unknown"
         callProvider.reportNewIncomingCall(with: uuid, update: update) { error in
@@ -120,6 +121,18 @@ extension PushManager: PKPushRegistryDelegate {
         callProvider.setDelegate(self, queue: nil)
         uuid = nil
         call = nil
+    }
+
+    func startCallKitCall(callee: String) {
+        self.uuid = UUID()
+        let handler = CXHandle(type: .generic, value: callee)
+        let callAction = CXStartCallAction(call: uuid, handle: handler)
+        callController.request(.init(action: callAction)) { error in
+            guard let error = error else {
+                return
+            }
+            print(error, " error in callkit call")
+        }
     }
 }
 
@@ -140,6 +153,7 @@ extension PushManager: CXProviderDelegate {
     }
 
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
+        ClientManager.shared.startaCall()
         action.fulfill()
     }
 
